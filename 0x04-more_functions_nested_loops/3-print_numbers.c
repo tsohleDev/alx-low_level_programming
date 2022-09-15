@@ -1,13 +1,20 @@
 #include "main.h"
 
 /**
- * main - check the code
- *
- * Return: Always 0.
+ * print_numbers - prints numbers
+ * Return:0
  */
-int main(void)
-{
-	print_numbers();
 
-	return (0);
+void print_numbers(void)
+{
+	char n = 0;
+
+	while (n <= 9)
+	{
+		_putchar('0' + n);
+		n++;
+
+	}
+	_putchar('\n');
+
 }
