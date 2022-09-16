@@ -1,28 +1,29 @@
-#include "main.h"
+#include "holberton.h"
 
 /**
- * print_square - Print a square with #.
- * @size: Is the size of the square.
- *
- * Return: To the value of void..
+ * print_square - check for a digit
+ * @n : number of _ to be printed
+ * Return:void
  */
-void print_square(int size)
+
+void print_square(int n)
 {
-	if (size <= 0)
+
+	int i = 0, ii;
+
+	while (i < n && n > 0)
 	{
-		_putchar('\n');
-	}
-	else
-	{
-		int i = 0;
-		while (i < size)
+		ii = 0;
+		while (ii < n)
 		{
-			for (int j = 0; j < size; j++)
-			{
-				_putchar('#');
-			}
-			i++;
-			_putchar('\n');
+			_putchar('#');
+			ii++;
 		}
+
+		_putchar('\n');
+		i++;
 	}
+	if (i == 0)
+		_putchar('\n');
+
 }
