@@ -1,11 +1,16 @@
 #include"main.h"
 
 /**
- * reset_to_98 - main
- * @n: - pinter to int
+ * swap_int - main
+ * @a: pointer
+ * @b: pointer
  */
 
-void reset_to_98(int *n)
+void swap_int(int *a, int *b)
 {
-	*n = 98;
+	int swap;
+
+	swap = *a;
+	*a = *b;
+	*b = swap;
 }
