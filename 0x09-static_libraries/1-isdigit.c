@@ -1,5 +1,4 @@
 #include "main.h"
-#include <ctype.h>
 
 /**
  * _isdigit - function that checks a digit
@@ -11,7 +10,7 @@
 
 int _isdigit(int c)
 {
-	int i = isdigit(c);
+	int i = 0;
 
 	if (i > 0)
 	{
