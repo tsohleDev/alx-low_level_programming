@@ -1,39 +1,44 @@
 #include "main.h"
 
 /**
- *string_nconcat - concatenates a whole string and a number of charectors from the second string
- *@s1: pointer to the first string's adress 
- *@s2 pointer to the second string's adress
- *@n the number of charectors of the second string thst should be concatenated
- *
- * Return: pointer to the new concatenated string's adress
- */
+*string_nconcat - Concatenates two strings using at
+*most an inputted number of bytes.
+*@s1: The first string.
+*@s2: The second string.
+*@n: The maximum number of bytes of s2 to concatenate to s1.
+*
+*Return: If the function fails - NULL.
+*Otherwise - a pointer to the concatenated space in memory.
+*/
 
 char *string_nconcat(char *s1, char *s2, unsigned int n)
 {
-	unsigned int _one = sizeof(s1), _two - sizeof(s2);
-	unsigned int ni = n > _two ? _two : n + 1; 
-	
-	char *p = malloc(_one + _two);
+	char *concat;
+	unsigned int len = n, index;
 
+	if (s1 == NULL)
+		s1 = "";
 
-	if (p == null)
-	{
-		retun Null;
-	}
+	if (s2 == NULL)
+		s2 = "";
 
+	for (index = 0; s1[index]; index++)
+		len++;
 
-	for (unsigned int i = 0;i < _one;i++)
-	{
-		p[i] = s1[i]	
-	}
-	for (unsigned int i = _one;i< _one+_two;i++)
-	{
-		p[i] = s2[i - _one];
-	}
+	concat = malloc(sizeof(char) * (len + 1));
 
-	if (p[_one + _two] != '\0')
-		p[_one + _two] = '\0';
-		
-	return p;
+	if (concat == NULL)
+		return (NULL);
+
+	len = 0;
+
+	for (index = 0; s1[index]; index++)
+		concat[len++] = s1[index];
+
+	for (index = 0; s2[index] && index < n; index++)
+		concat[len++] = s2[index];
+
+	concat[len] = '\0';
+
+	return (concat);
 }
