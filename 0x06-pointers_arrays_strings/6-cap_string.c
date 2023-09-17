@@ -6,23 +6,23 @@
 */
 char *cap_string(char *str)
 {
-	int index = 0;
+	int index = 0, i;
 	char separators[] = {' ', '\t', '\n', ',', ';', '.', '!', '?', '"', '(', ')', '{', '}'}; /* separators */
 
 	while (str[++index])
 	{
-		bool set_upper = false;
-		for (int i = 0; i < 13; i++)
+		char set_upper = 0;
+		for (i = 0; i < 13; i++)
 		{
 			if (str[index - 1] == separators[i])
 			{
-				set_upper = true;
+				set_upper = 1;
 				break;
 			}
 		}
 		
 		if (set_upper && str[index] >= 'a' && str[index] <= 'z')
-			str[index] -= 32';
+			str[index] -= 32;
 		else
 			index++;
 	}
