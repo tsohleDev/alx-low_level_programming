@@ -48,7 +48,7 @@ This line consists of 3 syntactical ideas
 - **<>**: This indicates to the preprocessor that the module is a standard header file or library
 - stdio.h: standard input/output header file: with the declaration of functions like `print`, and `puts` defined in the [glibc library](https://www.gnu.org/software/libc/started.html)
 
-In conclusion `#include <stdio.h>` includes the header file `stdio.h` which allows the program to make input/output streams to and from the program, in our case using the `puts` function that will output to your terminal A.K.A terminal. Although it is very important to understand how a program sends data to the output device, how it receives it from the input device, and how header files and libraries work, it might be overwhelming to include the mechanisms in this article so we will discuss them in more detail in the [Header files]() and [Input/Output devices]() piece.
+In conclusion `#include <stdio.h>` includes the header file `stdio.h` which is an **interface** to the _stdio_ acronym for _standard input output_ library  that allows the program to read/write input/output streams to and from the program, in our case using the `puts` function that to write on the output stream and output to your terminal A.K.A console. Although it is very important to understand how a program sends data to the output device, how it receives it from the input device, and how header files and libraries work, it might be overwhelming to include the mechanisms in this article so we will discuss them in more detail in the [Header files]() and [Input/Output devices]() piece.
 
 ### DocBlock
 
@@ -63,9 +63,9 @@ The main function returns a signed integer (4-byte word) with a range of $ [2]$ 
 
 ## Compilation
 
-It might put things into perspective knowing that there are only two types of files in a computer, **text file** and **binary file**. text files are files that store text and binary files store binary, Although text files also store binary, the binary codes are **asci** or **Unicode** to make text editors easily read them. The binary code can be executable/program
+It might put things into perspective knowing that there are only two types of files in a computer, **text files** and **binary files**. text files are files that store text and binary files store binary, Although text files also store binary, the binary code is encoded with **asci** or **UTF-8** to make text editors easily read/write them. The binary code can be executable/program
 
-The compilation is the process of converting source code (text file) into an executable machine code (binary file) compatible with the hardware i.e. our hello world binary file could be different based on what hardware you're compiling it for, and drive the point home we will compile our source code for intel hardware
+The compilation is the process of converting source code (text file) into an executable machine code (binary file) compatible with the hardware i.e. our hello world binary file could be different based on what hardware you're compiling it for, and to drive the point home we will compile our source code for intel hardware
 
 Now the compilation process has **four** phases or stages. with the GCC compiler, you can stop the compilation process at any of these four stages by raising a flag
 
@@ -150,8 +150,7 @@ main:
         .section        .note.GNU-stack,"",@progbits
 ```
 
-Imagine debugging in that language, You'd probably need a book trying to go through each command your CPU made and how it led to a bug
-Such a nightmare.
+Now imagine debugging in that language
 
 ### 3. Compiler 
 
@@ -165,15 +164,79 @@ since I am using Linux the extension is `.o` in Windows is `.exe`
 
 ### 4. Linker
 
-Now linking is a bit of a complications one, but since we are here already I will just shove the red pill in your mouth.
+Now linking is a bit of a complicated one, but since we are already here, I might as well just shove the red pill in your mouth.
+
+Linking which is the process done by the linker, is just the act of linking the library binaries with the source code's binaries to create the executable file.
+
+Remember I said "The header file is an **interface** to a library", I guess there are two concepts to unpack from that phrase **interface and library**
+
+- **Library**: A.K.A **module** is a pre-written code that one can simply plug into their code by means of an include directive in **C/C++**
+
+    Note that every language has modules in its own way.
+
+  **It is always a good idea to modularize your code. Benefits being: **
+
+  1. **Fast Compilation**: Compiling a module can be exponentially faster than compiling the whole codebase
+  2. **Readability** It is much easier to read a few lines and associate files with functionality
+  3. **Testing** Unit tests can be made for each module, then an integration test will be simpler
+ 
+  This would be a great time to create a library, as we will need it to proceed a little further down
+
+
+  ### string.h
+  
+  ```c
+  #Ifndef STRING_H
+  #Define STRING_H
+
+  # to_upper converts a string to uppercase
+  *char to_upper(*char string);
+
+  #to_lower converts a string to lowercase
+  *char to_lower(*char string);
+  
+
+  #Endif
+  ```
+
+  ### string.c
+  ```c
+
+  #include "string.h"
+
+  *char to_upper(*char string)
+  {
+      int i;
+
+      for(i = 0, string[i] != '\0', i++)
+      {
+          
+      }
+  }
+  ```
+  
+- **Interface**: A.K.A **The contract** is a file where you declare the "module", but do not implement it
+    Now why would this be beneficial?
+
+    This allows you to have a module as an object code but include it in your source code. By having the **interface** as .h and the implementation already compiled, it can still be linked together
+
+##### In C/C++ we have two types of linking 
+
+###### 1. Static Linking
+
+**Static linking is just linking a library during Compile time**.
+
+There are essentially three ways one can go about doing this
+
+1. link a library as a source file
+
+```sh
+    
+```
 
 
 
 
-
-
-
-
-And that's it, folks. One of the most helpful Hello World tutorials you can ever do to become a real developer. You can apply for that senior position now, infact you can even apply to be the CEO, in fact, forget applying, you are now the CEO, in fact, screw the CEO, you are now the president. Thank you, Madam President, this way madam President. "The nest has secured the egg, I repeat the nest has secured the egg"
+And that's it, folks. One of the most helpful Hello World tutorials you can ever do to become a real developer. You can apply for that senior position now, in fact, you can even apply to be the CEO, in fact, forget to apply, you are now the CEO, in fact, screw the CEO, you are now the president. Thank you, Madam President, this way Madam President. "The nest has secured the egg, I repeat the nest has secured the egg"
 
 
