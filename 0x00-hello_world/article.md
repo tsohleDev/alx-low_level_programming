@@ -331,7 +331,7 @@ There are essentially three ways one can go about doing this
 
 ```sh
 gcc -fPIC -shared string.c -o libstring.so # create the shared object
-gcc hello.c -o hello -lstring
+gcc hello.c -o hello -lstring -L./
 ```
 
 
