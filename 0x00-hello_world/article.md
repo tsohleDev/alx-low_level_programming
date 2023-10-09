@@ -180,40 +180,115 @@ Remember I said "The header file is an **interface** to a library", I guess ther
   2. **Readability** It is much easier to read a few lines and associate files with functionality
   3. **Testing** Unit tests can be made for each module, then an integration test will be simpler
  
-  This would be a great time to create a library, as we will need it to proceed a little further down
+  This would be a great time to create a library and update our hello world source file, as we will need it to proceed a little further down
 
 
   ### string.h
   
   ```c
-  #Ifndef STRING_H
-  #Define STRING_H
-
-  # to_upper converts a string to uppercase
-  *char to_upper(*char string);
-
-  #to_lower converts a string to lowercase
-  *char to_lower(*char string);
-  
-
-  #Endif
+    #ifndef _STRING_H
+    #define _STRING_H
+   https://github.com/tsohleDev/alx-low_level_programming/edit/main/0x00-hello_world/article.md 
+    // to_upper converts a string to uppercase
+    char *to_upper(char *string);
+    
+    // to_lower converts a string to lowercase
+    char *to_lower(char *string);
+    
+    // copy copies a string to another string
+    char *copy(char *str);
+    
+    #endif
   ```
 
   ### string.c
   ```c
-
-  #include "string.h"
-
-  *char to_upper(*char string)
-  {
-      int i;
-
-      for(i = 0, string[i] != '\0', i++)
-      {
-          
+    #include "string.h"
+    #include <stdlib.h>
+    
+    /***
+        * to_upper - function that capitalize first character of a word
+        * @string: string to capitalize
+        * Return:returns the capitalized string
+        *
+        * Description: This function capitalizes the first character of a word
+        * in a string.
+        * Example:
+        *   to_upper("hello, world!") -> "HELLO, WORLD!"
+    ***/
+    
+    
+    char *to_upper(char *str) {
+      int i = 0;
+      for (i = 0; str[i] != '\0'; i++) {
+        if (str[i] >= 97 && str[i] <= 122) 
+          str[i] -= 32;
       }
-  }
+      return str;
+    }
+    
+    /***
+        * to_lower - function that lowercase first character of a word
+        * @string: string to lowercase
+        * Return:returns the lowercase string
+        *
+        * Description: This function lowercase the first character of a word
+        * in a string.
+        * Example:
+        *   to_lower("HELLO, WORLD!") -> "hello, world!"
+    ***/
+    
+    char *to_lower(char *str) {
+      int i = 0;
+      for (i = 0; str[i] != '\0'; i++) {
+        if (str[i] >= 65 && str[i] <= 90) 
+          str[i] += 32;
+      }
+      return str;
+    }
+    
+    /***
+        * copy - function that copies a string
+        * @string: string to copy
+        * Return:returns the copied string
+        *
+        * Description: This function copies a string.
+        * Example:
+        *   copy("hello, world!") -> "hello, world!"
+    ***/
+    
+    char *copy(char *str) {
+      int i = 0;
+      char *c = (char *)malloc(sizeof(char) * 15);
+      for (i = 0; i < 15; i++) {
+        c[i] = str[i];
+      }
+    
+      return c;
+    }
   ```
+
+### hello.c
+```c
+#include <stdio.h>
+#include "string.h"
+
+/***
+    * main - entry point
+    * 
+    * Return:returns 0
+    *
+    * Description: This function is the entry point
+***/
+
+int main() {
+    char *c = to_upper(copy("hello, world!"));
+
+    printf("%p => %s\n", c, c);
+
+    return 0;
+}
+```
   
 - **Interface**: A.K.A **The contract** is a file where you declare the "module", but do not implement it
     Now why would this be beneficial?
@@ -228,13 +303,36 @@ Remember I said "The header file is an **interface** to a library", I guess ther
 
 There are essentially three ways one can go about doing this
 
-1. link a library as a source file
+- From source file
+
+    Generally, this is not recommended, due to its efficiency as you have to compile both files.
+    
+    ```sh
+        gcc hello.c string.c -o hello
+    ```
+
+- From object files
+    ```sh
+    gcc -c string.c -o string.o # Create the binary for the library
+    gcc hello.c string.o -o hello
+    ```
+
+- From archive
+
+    Although an archive is a collection of object code files, one object code file can still be archived
+    
+    ```sh
+    ar rcs libstring.a string.o
+    gcc hello.c -o hello -lstring
+    ```
+
+
+###### 1. Dynamic Linking
 
 ```sh
-    
+gcc -fPIC -shared string.c -o libstring.so # create the shared object
+gcc hello.c -o hello -lstring
 ```
-
-
 
 
 And that's it, folks. One of the most helpful Hello World tutorials you can ever do to become a real developer. You can apply for that senior position now, in fact, you can even apply to be the CEO, in fact, forget to apply, you are now the CEO, in fact, screw the CEO, you are now the president. Thank you, Madam President, this way Madam President. "The nest has secured the egg, I repeat the nest has secured the egg"
